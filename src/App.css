@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  min-height: 100vh;
   background-color: #282c34;
 }
 
@@ -36,5 +35,10 @@
 }
 
 form {
-  background-color: red;
+  color: white;
+}
+
+.weather-card {
+  border: 1px solid white;
+  background-color: white;
 }

@@ -1,0 +1,4 @@
+2020-11-07T01:07:33-08:00 | 281fef9422e3a640dd6007006b451b7d2b6e6250 | Add API key, add form to get weather based on city name.
+2020-11-05T23:48:50-08:00 | 11cd31cea3859ac5e728197c9770349a83d4323f | Outline app features, add icons.
+2020-11-05T23:36:11-08:00 | c6e62648261e27e257040e65fb77967cfb7d2440 | Clear default README, add logo and stylings.
+2020-11-05T23:30:24-08:00 | a6902fdc6a99d6d82762eb99e7e9c82d6b0283f7 | Initialize project using Create React App
