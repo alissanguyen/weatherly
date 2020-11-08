@@ -1,8 +1,9 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { API_KEY } from "./constants";
+import { API_KEY, UnitOfTemperature } from "./constants";
 import React from "react";
 import WeatherCard from "./components/WeatherCard";
+import DropDownButton from "./components/DropDownButton";
 
 /**
  * BASIC FEATURES
@@ -43,7 +44,8 @@ const GetWeatherForm = (props) => {
 
 function App() {
   const [weatherData, setWeatherData] = React.useState(null);
-  const [unit, setUnit] = React.useState('Celsius')
+  const [unit, setUnit] = React.useState(UnitOfTemperature.Celsius);
+  const [show, setShow] = React.useState(false);
 
   const getWeather = (city) => {
     fetch(
@@ -78,10 +80,24 @@ function App() {
           <img src={logo} className="App-logo" alt="logo" />
           <h1>Blue Sky</h1>
         </header>
-  <button id="unit-button" onClick={() => setUnit('Farenheit')}>{unit}</button>
+        <DropDownButton onClick={() => setShow((show) => !show)} />
+        {show && (
+          <div id="components-box">
+            <div className="unit">
+              <button onClick={() => setUnit(UnitOfTemperature.Celsius)}>
+                Celsius (°C)
+              </button>
+            </div>
+            <div>
+              <button onClick={() => setUnit(UnitOfTemperature.Farenheit)}>
+                Farenheit (°F)
+              </button>
+            </div>
+          </div>
+        )}
         <GetWeatherForm getWeather={(city) => getWeather(city)} />
       </div>
-      {weatherData ? <WeatherCard weather={weatherData} /> : null}
+      {weatherData ? <WeatherCard unit={unit} weather={weatherData} /> : null}
     </React.Fragment>
   );
 }

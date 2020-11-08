@@ -9,6 +9,8 @@
 import React from "react";
 
 const WeatherCard = (props) => {
+
+  const unit = props.unit;
   const data = props.weather;
 
   function groupBy(array, property) {
