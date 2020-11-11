@@ -97,7 +97,12 @@ function App() {
         )}
         <GetWeatherForm getWeather={(city) => getWeather(city)} />
       </div>
-      {weatherData ? <WeatherCard unit={unit} weather={weatherData} /> : null}
+      {weatherData ? (
+        <React.Fragment>
+          <h4>{weatherData.city}, {weatherData.country}</h4>
+          <WeatherCard unit={unit} weather={weatherData} />
+        </React.Fragment>
+      ) : null}
     </React.Fragment>
   );
 }

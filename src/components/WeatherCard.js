@@ -1,3 +1,11 @@
+import cloudyIcon from "../icons/cloudy.svg";
+import windyIcon from "../icons/windy.svg";
+import sunnyIcon from "../icons/sun.svg";
+import rainyIcon from "../icons/rainy.svg";
+import snowyIcon from "../icons/snowy.svg";
+import humidityIcon from "../icons/humidity.svg";
+import thermometerIcon from "../icons/thermometer.svg";
+
 /**
  * 1. Display the icon of the weather (rain, sunny, cloudy, lightnings, snowy, etc.)
  * 2. Display the temperature (Celsius, Farenheit) --> Both high and low temp of each day
@@ -23,6 +31,23 @@ const WeatherCard = (props) => {
     }, {});
   }
 
+
+  function handleIcons(weatherDescription) {
+      if (weatherDescription.includes('rainy')) {
+          var icon = rainyIcon
+      } else if (weatherDescription.includes('windy')) {
+          var icon = windyIcon
+      } else if (weatherDescription.includes('sunny') || weatherDescription.includes('clear')) {
+          var icon = sunnyIcon
+      } else if (weatherDescription.includes('cloud')) {
+          var icon = cloudyIcon
+      } else if (weatherDescription.includes('snow')) {
+          var icon = snowyIcon
+      }
+  }
+
+
+
   function convertKelvinToCelsius(temperature) {
       const cTemperature = temperature - 273;
   }
@@ -31,29 +56,22 @@ const WeatherCard = (props) => {
       const fTemperature = (( (temperature - 273.15) * 9 ) / 5 ) + 32
   }
 
-  let sortedData = groupBy(data.data, "date");
-  console.log(sortedData);
+  // Group weather data response by date
+  let groupedData = groupBy(data.data, "date");
 
-  /**
-   * (for i=0; i < sortedData.size(); i++) { return ()}
-   * 
-   * 
-   * 
-   * sortedData[i].date //date
-   * sortedData[i].time //time
-   * sortedData[i].main.humidity
-   * sortedData[i].main.temp
-   * sortedData[i].main.temp_max
-   * sortedData[i].main.temp_min
-   * sortedData[i].weather[0].description
-   * 
-   * 
-   */
+  // Sort the data by date
+  const datesAsArray = Object.keys(groupedData).reduce((acc, cur) => {
+  acc.push({ dateString: cur, data: groupedData[cur] })
+    return acc}, [])
+
+  datesAsArray.sort((a, b) => new Date(a.dateString).valueOf() - new Date(b.dateString).valueOf())
+
+  console.log(datesAsArray);
   
   return (
     <React.Fragment>
       <div className="weather-card">
-        <h4>{data.city}</h4>
+        
       </div>
     </React.Fragment>
   );
