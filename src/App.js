@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { API_KEY, UnitOfTemperature } from "./constants";
 import React from "react";
-import WeatherCard from "./components/WeatherCard";
+import WeatherCards from "./components/WeatherCard";
 import DropDownButton from "./components/DropDownButton";
 
 /**
@@ -100,7 +100,7 @@ function App() {
       {weatherData ? (
         <React.Fragment>
           <h4>{weatherData.city}, {weatherData.country}</h4>
-          <WeatherCard unit={unit} weather={weatherData} />
+          <WeatherCards unit={unit} weather={weatherData} />
         </React.Fragment>
       ) : null}
     </React.Fragment>

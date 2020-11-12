@@ -16,8 +16,7 @@ import thermometerIcon from "../icons/thermometer.svg";
 
 import React from "react";
 
-const WeatherCard = (props) => {
-
+const WeatherCards = (props) => {
   const unit = props.unit;
   const data = props.weather;
 
@@ -31,29 +30,29 @@ const WeatherCard = (props) => {
     }, {});
   }
 
-
   function handleIcons(weatherDescription) {
-      if (weatherDescription.includes('rainy')) {
-          var icon = rainyIcon
-      } else if (weatherDescription.includes('windy')) {
-          var icon = windyIcon
-      } else if (weatherDescription.includes('sunny') || weatherDescription.includes('clear')) {
-          var icon = sunnyIcon
-      } else if (weatherDescription.includes('cloud')) {
-          var icon = cloudyIcon
-      } else if (weatherDescription.includes('snow')) {
-          var icon = snowyIcon
-      }
+    if (weatherDescription.includes("rainy")) {
+      var icon = rainyIcon;
+    } else if (weatherDescription.includes("windy")) {
+      var icon = windyIcon;
+    } else if (
+      weatherDescription.includes("sunny") ||
+      weatherDescription.includes("clear")
+    ) {
+      var icon = sunnyIcon;
+    } else if (weatherDescription.includes("cloud")) {
+      var icon = cloudyIcon;
+    } else if (weatherDescription.includes("snow")) {
+      var icon = snowyIcon;
+    }
   }
 
-
-
   function convertKelvinToCelsius(temperature) {
-      const cTemperature = temperature - 273;
+    const cTemperature = temperature - 273;
   }
 
   function convertKelvinToFarenheit(temperature) {
-      const fTemperature = (( (temperature - 273.15) * 9 ) / 5 ) + 32
+    const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
   }
 
   // Group weather data response by date
@@ -61,20 +60,50 @@ const WeatherCard = (props) => {
 
   // Sort the data by date
   const datesAsArray = Object.keys(groupedData).reduce((acc, cur) => {
-  acc.push({ dateString: cur, data: groupedData[cur] })
-    return acc}, [])
+    acc.push({ dateString: cur, data: groupedData[cur] });
+    return acc;
+  }, []);
 
-  datesAsArray.sort((a, b) => new Date(a.dateString).valueOf() - new Date(b.dateString).valueOf())
+  datesAsArray.sort(
+    (a, b) =>
+      new Date(a.dateString).valueOf() - new Date(b.dateString).valueOf()
+  );
 
   console.log(datesAsArray);
-  
+
+  const OneDayWeatherCard = (props) => {
+    const dateString = props.weatherData;
+    const data = props.weatherData.data;
+    return (
+      <React.Fragment>
+        <a> {dateString.dateString} </a>
+        {data.map((a) => {
+          return (
+            <React.Fragment>
+              <div className="weather-card">
+                <div>
+                  <a>{a.time}</a>
+                </div>
+                <div>
+                  <a>{a.weather[0].description}</a>
+                </div>
+              </div>
+            </React.Fragment>
+          );
+        })}
+      </React.Fragment>
+    );
+  };
+
   return (
     <React.Fragment>
-      <div className="weather-card">
-        
+      <div>
+        {datesAsArray.map((a) => {
+          return <OneDayWeatherCard weatherData={a} />;
+        })}
       </div>
     </React.Fragment>
   );
 };
 
-export default WeatherCard;
+export default WeatherCards;
