@@ -49,10 +49,21 @@ const WeatherCards = (props) => {
 
   function convertKelvinToCelsius(temperature) {
     const cTemperature = temperature - 273;
+    const temp = Math.round(cTemperature);
+    return temp;
   }
 
   function convertKelvinToFarenheit(temperature) {
     const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
+    const temp = Math.round(fTemperature);
+    return temp;
+  }
+
+  function getTime(string) {
+      const stringArray = string.split(" ");
+      const timeStamp = stringArray[0].split(":");
+      const time = timeStamp[0] + ":" + timeStamp[1];
+      return time;
   }
 
   // Group weather data response by date
@@ -82,10 +93,16 @@ const WeatherCards = (props) => {
             <React.Fragment>
               <div className="weather-card">
                 <div>
-                  <a>{a.time}</a>
+                  <a>{getTime(a.time)}</a>
                 </div>
                 <div>
                   <a>{a.weather[0].description}</a>
+                </div>
+                <div>
+                  <a>{a.main.humidity}</a>
+                </div>
+                <div>
+                  <a>{convertKelvinToCelsius(a.main.temp)}</a>
                 </div>
               </div>
             </React.Fragment>
