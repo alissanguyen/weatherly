@@ -1,15 +1,10 @@
-import cloudyIcon from "../icons/cloudy.svg";
-import windyIcon from "../icons/windy.svg";
-import sunnyIcon from "../icons/sun.svg";
-import rainyIcon from "../icons/rainy.svg";
-import snowyIcon from "../icons/snowy.svg";
 import humidityIcon from "../icons/humidity.svg";
 import thermometerIcon from "../icons/thermometer.svg";
 
 /**
- * 1. Display the icon of the weather (rain, sunny, cloudy, lightnings, snowy, etc.)
+ * 1. Display the icon of the weather (rain, sunny, cloudy, lightnings, snowy, etc.) CHECK
  * 2. Display the temperature (Celsius, Farenheit) --> Both high and low temp of each day
- * 3. Display the humidity and wind speed
+ * 3. Display the humidity 
  * 4. (Extension) background gif for the weather condition
  *
  */
@@ -17,9 +12,10 @@ import thermometerIcon from "../icons/thermometer.svg";
 import React from "react";
 
 const WeatherCards = (props) => {
-  const unit = props.unit;
+  const unit = props.unit; //TODO: implement different unit systems
   const data = props.weather;
 
+  /** Group APi response data by date */
   function groupBy(array, property) {
     return array.reduce(function (memo, x) {
       if (!memo[x[property]]) {
@@ -28,47 +24,6 @@ const WeatherCards = (props) => {
       memo[x[property]].push(x);
       return memo;
     }, {});
-  }
-
-  //   function handleIcons(weatherDescription) {
-  //     if (weatherDescription.includes("rainy")) {
-  //       var icon = rainyIcon;
-  //     } else if (weatherDescription.includes("windy")) {
-  //       var icon = windyIcon;
-  //     } else if (
-  //       weatherDescription.includes("sunny") ||
-  //       weatherDescription.includes("clear")
-  //     ) {
-  //       var icon = sunnyIcon;
-  //     } else if (weatherDescription.includes("cloud")) {
-  //       var icon = cloudyIcon;
-  //     } else if (weatherDescription.includes("snow")) {
-  //       var icon = snowyIcon;
-  //     }
-  //   }
-
-  function getIcon(icon) {
-    const url = `http://openweathermap.org/img/wn/${icon}@2x.png`
-    return url;
-  }
-
-  function convertKelvinToCelsius(temperature) {
-    const cTemperature = temperature - 273;
-    const temp = Math.round(cTemperature);
-    return temp;
-  }
-
-  function convertKelvinToFarenheit(temperature) {
-    const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
-    const temp = Math.round(fTemperature);
-    return temp;
-  }
-
-  function getTime(string) {
-    const stringArray = string.split(" ");
-    const timeStamp = stringArray[0].split(":");
-    const time = timeStamp[0] + ":" + timeStamp[1];
-    return time;
   }
 
   // Group weather data response by date
@@ -87,6 +42,38 @@ const WeatherCards = (props) => {
 
   console.log(datesAsArray);
 
+  /** Find the url for the weather icon depends on the weather description */
+  function getIcon(icon) {
+    const url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+    return url;
+  }
+
+  function convertKelvinToCelsius(temperature) {
+    const cTemperature = temperature - 273;
+    const temp = Math.round(cTemperature);
+    return temp;
+  }
+
+  function convertKelvinToFarenheit(temperature) {
+    const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
+    const temp = Math.round(fTemperature);
+    return temp;
+  }
+
+  // Get only the first part of the timeString in the response API
+  function getTime(string) {
+    const stringArray = string.split(" ");
+    const timeStamp = stringArray[0].split(":");
+    const time = timeStamp[0] + ":" + timeStamp[1];
+    return time;
+  }
+
+  function extendWeatherDescription() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+    alert('hi')
+  }
+
   const OneDayWeatherCard = (props) => {
     const dateString = props.weatherData;
     const data = props.weatherData.data;
@@ -101,10 +88,17 @@ const WeatherCards = (props) => {
                   <a>{getTime(a.time)}</a>
                 </div>
                 <div id="icon">
-                  <img id="wicon" src={getIcon(a.weather[0].icon)} alt="Weather icon" />
+                  <img
+                    id="weather-icon"
+                    src={getIcon(a.weather[0].icon)}
+                    alt="Weather icon"
+                  />
                 </div>
-                <div>
-                  <a>{a.weather[0].description}</a>
+                <div class="popup" onclick={() => extendWeatherDescription()}>
+                  Click me!
+                  <span class="popuptext" id="myPopup">
+                    {a.weather[0].description}
+                  </span>
                 </div>
                 <div>
                   <a>{a.main.humidity}</a>
