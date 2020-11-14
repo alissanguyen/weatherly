@@ -30,21 +30,26 @@ const WeatherCards = (props) => {
     }, {});
   }
 
-  function handleIcons(weatherDescription) {
-    if (weatherDescription.includes("rainy")) {
-      var icon = rainyIcon;
-    } else if (weatherDescription.includes("windy")) {
-      var icon = windyIcon;
-    } else if (
-      weatherDescription.includes("sunny") ||
-      weatherDescription.includes("clear")
-    ) {
-      var icon = sunnyIcon;
-    } else if (weatherDescription.includes("cloud")) {
-      var icon = cloudyIcon;
-    } else if (weatherDescription.includes("snow")) {
-      var icon = snowyIcon;
-    }
+  //   function handleIcons(weatherDescription) {
+  //     if (weatherDescription.includes("rainy")) {
+  //       var icon = rainyIcon;
+  //     } else if (weatherDescription.includes("windy")) {
+  //       var icon = windyIcon;
+  //     } else if (
+  //       weatherDescription.includes("sunny") ||
+  //       weatherDescription.includes("clear")
+  //     ) {
+  //       var icon = sunnyIcon;
+  //     } else if (weatherDescription.includes("cloud")) {
+  //       var icon = cloudyIcon;
+  //     } else if (weatherDescription.includes("snow")) {
+  //       var icon = snowyIcon;
+  //     }
+  //   }
+
+  function getIcon(icon) {
+    const url = `http://openweathermap.org/img/wn/${icon}@2x.png`
+    return url;
   }
 
   function convertKelvinToCelsius(temperature) {
@@ -60,10 +65,10 @@ const WeatherCards = (props) => {
   }
 
   function getTime(string) {
-      const stringArray = string.split(" ");
-      const timeStamp = stringArray[0].split(":");
-      const time = timeStamp[0] + ":" + timeStamp[1];
-      return time;
+    const stringArray = string.split(" ");
+    const timeStamp = stringArray[0].split(":");
+    const time = timeStamp[0] + ":" + timeStamp[1];
+    return time;
   }
 
   // Group weather data response by date
@@ -94,6 +99,9 @@ const WeatherCards = (props) => {
               <div className="weather-card">
                 <div>
                   <a>{getTime(a.time)}</a>
+                </div>
+                <div id="icon">
+                  <img id="wicon" src={getIcon(a.weather[0].icon)} alt="Weather icon" />
                 </div>
                 <div>
                   <a>{a.weather[0].description}</a>
