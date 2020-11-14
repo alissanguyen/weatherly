@@ -42,13 +42,27 @@ form {
 
 .weather-card {
   border: 1px solid white;
-  background-color: white;
+  background-color: black;
+  color: white;
+  /* display: grid;
+  grid-template-columns: auto auto auto auto auto; */
+}
+.weather-by-time {
+  border: 0px solid white;
+  background-color: black;
+  color: white;
   display: grid;
   grid-template-columns: auto auto auto auto auto;
 }
 
 #weather-icon {
   height: 55px;
+}
+
+#humidity-icon {
+  display: flex;
+  height: 15px;
+  padding: 3px;
 }
 
 /* Popup container */

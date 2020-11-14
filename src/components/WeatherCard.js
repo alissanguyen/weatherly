@@ -4,7 +4,7 @@ import thermometerIcon from "../icons/thermometer.svg";
 /**
  * 1. Display the icon of the weather (rain, sunny, cloudy, lightnings, snowy, etc.) CHECK
  * 2. Display the temperature (Celsius, Farenheit) --> Both high and low temp of each day
- * 3. Display the humidity 
+ * 3. Display the humidity
  * 4. (Extension) background gif for the weather condition
  *
  */
@@ -51,13 +51,15 @@ const WeatherCards = (props) => {
   function convertKelvinToCelsius(temperature) {
     const cTemperature = temperature - 273;
     const temp = Math.round(cTemperature);
-    return temp;
+    const formalTemp = temp + "°C"
+    return formalTemp;
   }
 
   function convertKelvinToFarenheit(temperature) {
     const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
     const temp = Math.round(fTemperature);
-    return temp;
+    const formalTemp = temp + "°F"
+    return formalTemp;
   }
 
   // Get only the first part of the timeString in the response API
@@ -71,7 +73,7 @@ const WeatherCards = (props) => {
   function extendWeatherDescription() {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-    alert('hi')
+    alert("hi");
   }
 
   const OneDayWeatherCard = (props) => {
@@ -80,36 +82,48 @@ const WeatherCards = (props) => {
     return (
       <React.Fragment>
         <a> {dateString.dateString} </a>
-        {data.map((a) => {
-          return (
-            <React.Fragment>
-              <div className="weather-card">
-                <div>
-                  <a>{getTime(a.time)}</a>
-                </div>
-                <div id="icon">
+        <div className="weather-card">
+          {data.map((a) => {
+            return (
+              <React.Fragment>
+                <div className="weather-by-time">
+                  <div>
+                    <a>{getTime(a.time)}</a>
+                  </div>
+                  <div id="icon">
+                    <img
+                      id="weather-icon"
+                      src={getIcon(a.weather[0].icon)}
+                      alt="Weather icon"
+                    />
+                  </div>
+                  <div class="popup" onclick={() => extendWeatherDescription()}>
+                    Click me!
+                    <span class="popuptext" id="myPopup">
+                      {a.weather[0].description}
+                    </span>
+                  </div>
+                  <div>
+                    <a>{a.main.humidity}</a>
+                    <img
+                      id="humidity-icon"
+                      src={humidityIcon}
+                      alt="Weather icon"
+                    />
+                  </div>
+                  <div>
                   <img
-                    id="weather-icon"
-                    src={getIcon(a.weather[0].icon)}
-                    alt="Weather icon"
-                  />
+                      id="humidity-icon"
+                      src={thermometerIcon}
+                      alt="Weather icon"
+                    />
+                    <a>{convertKelvinToCelsius(a.main.temp)}</a>
+                  </div>
                 </div>
-                <div class="popup" onclick={() => extendWeatherDescription()}>
-                  Click me!
-                  <span class="popuptext" id="myPopup">
-                    {a.weather[0].description}
-                  </span>
-                </div>
-                <div>
-                  <a>{a.main.humidity}</a>
-                </div>
-                <div>
-                  <a>{convertKelvinToCelsius(a.main.temp)}</a>
-                </div>
-              </div>
-            </React.Fragment>
-          );
-        })}
+              </React.Fragment>
+            );
+          })}
+        </div>
       </React.Fragment>
     );
   };
