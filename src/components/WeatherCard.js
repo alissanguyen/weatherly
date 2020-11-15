@@ -67,21 +67,15 @@ const WeatherCards = (props) => {
                     alt="Weather icon"
                   />
                 </div>
-                <div class="popup" onClick={() => extendWeatherDescription()}>
-                  Click!
-                  <span class="popuptext" id="myPopup">
-                    {a.weather[0].description}
-                  </span>
-                </div>
-                <div>
-                  <a>{a.main.humidity}</a>
+                <div className="icons-data">
                   <img
                     id="humidity-icon"
                     src={humidityIcon}
                     alt="Weather icon"
                   />
+                  <a>{a.main.humidity}</a>
                 </div>
-                <div>
+                <div className="icons-data">
                   <img
                     id="humidity-icon"
                     src={thermometerIcon}
@@ -110,11 +104,6 @@ const WeatherCards = (props) => {
 function getIcon(icon) {
   const url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
   return url;
-}
-
-function extendWeatherDescription() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
 }
 
 function convertKelvinToCelsius(temperature) {

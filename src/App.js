@@ -5,11 +5,10 @@ import { API_KEY, UnitOfTemperature } from "./constants";
 import React from "react";
 import WeatherCards from "./components/WeatherCard";
 import DropDownButton from "./components/DropDownButton";
-import { DEV_INITIAL_WEATHER_DATA } from "./example-data";
 
 /**
  * BASIC FEATURES
- * 1. Refresh every 5-10 minutes with the exact temp and weather conditions
+ * 1. Display five-day weather data
  * 2. Should have responsive designs
  * 3. Choose and display location and date
  * 4. Can switch between Farenheit and Celsius
