@@ -10,133 +10,133 @@ import thermometerIcon from "../icons/thermometer.svg";
  */
 
 import React from "react";
+import Spacer from "./Spacer";
 
 const WeatherCards = (props) => {
-  const unit = props.unit; //TODO: implement different unit systems
-  const data = props.weather;
+  const { unit, weather } = props;
 
-  /** Group APi response data by date */
+  /** Group API response data by date */
   function groupBy(array, property) {
-    return array.reduce(function (memo, x) {
-      if (!memo[x[property]]) {
-        memo[x[property]] = [];
+    return array.reduce((acc, x) => {
+      if (!acc[x[property]]) {
+        acc[x[property]] = [];
       }
-      memo[x[property]].push(x);
-      return memo;
+      acc[x[property]].push(x);
+      return acc;
     }, {});
   }
 
   // Group weather data response by date
-  let groupedData = groupBy(data.data, "date");
+  let groupedData = groupBy(weather.data, "date");
 
   // Sort the data by date
   const datesAsArray = Object.keys(groupedData).reduce((acc, cur) => {
+    /**
+     * Todo: normalize the data such that we always have data for each hour.
+     */
     acc.push({ dateString: cur, data: groupedData[cur] });
     return acc;
   }, []);
 
-  datesAsArray.sort(
+  const sortedDates = [...datesAsArray].sort(
     (a, b) =>
       new Date(a.dateString).valueOf() - new Date(b.dateString).valueOf()
   );
 
-  console.log(datesAsArray);
-
-  /** Find the url for the weather icon depends on the weather description */
-  function getIcon(icon) {
-    const url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-    return url;
-  }
-
-  function convertKelvinToCelsius(temperature) {
-    const cTemperature = temperature - 273;
-    const temp = Math.round(cTemperature);
-    const formalTemp = temp + "°C"
-    return formalTemp;
-  }
-
-  function convertKelvinToFarenheit(temperature) {
-    const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
-    const temp = Math.round(fTemperature);
-    const formalTemp = temp + "°F"
-    return formalTemp;
-  }
-
-  // Get only the first part of the timeString in the response API
-  function getTime(string) {
-    const stringArray = string.split(" ");
-    const timeStamp = stringArray[0].split(":");
-    const time = timeStamp[0] + ":" + timeStamp[1];
-    return time;
-  }
-
-  function extendWeatherDescription() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-    alert("hi");
-  }
+  console.log(sortedDates);
 
   const OneDayWeatherCard = (props) => {
     const dateString = props.weatherData;
     const data = props.weatherData.data;
+
     return (
-      <React.Fragment>
-        <a> {dateString.dateString} </a>
-        <div className="weather-card">
+      <div className="weather-card">
+        <h4 className="WeatherCard__DateHeader"> {dateString.dateString} </h4>
+        <Spacer height={10} />
+        <div className="weather-by-time-container">
           {data.map((a) => {
             return (
-              <React.Fragment>
-                <div className="weather-by-time">
-                  <div>
-                    <a>{getTime(a.time)}</a>
-                  </div>
-                  <div id="icon">
-                    <img
-                      id="weather-icon"
-                      src={getIcon(a.weather[0].icon)}
-                      alt="Weather icon"
-                    />
-                  </div>
-                  <div class="popup" onclick={() => extendWeatherDescription()}>
-                    Click me!
-                    <span class="popuptext" id="myPopup">
-                      {a.weather[0].description}
-                    </span>
-                  </div>
-                  <div>
-                    <a>{a.main.humidity}</a>
-                    <img
-                      id="humidity-icon"
-                      src={humidityIcon}
-                      alt="Weather icon"
-                    />
-                  </div>
-                  <div>
-                  <img
-                      id="humidity-icon"
-                      src={thermometerIcon}
-                      alt="Weather icon"
-                    />
-                    <a>{convertKelvinToCelsius(a.main.temp)}</a>
-                  </div>
+              <div className="weather-by-time">
+                <div>
+                  <a>{getTime(a.time)}</a>
                 </div>
-              </React.Fragment>
+                <div id="icon">
+                  <img
+                    id="weather-icon"
+                    src={getIcon(a.weather[0].icon)}
+                    alt="Weather icon"
+                  />
+                </div>
+                <div class="popup" onClick={() => extendWeatherDescription()}>
+                  Click!
+                  <span class="popuptext" id="myPopup">
+                    {a.weather[0].description}
+                  </span>
+                </div>
+                <div>
+                  <a>{a.main.humidity}</a>
+                  <img
+                    id="humidity-icon"
+                    src={humidityIcon}
+                    alt="Weather icon"
+                  />
+                </div>
+                <div>
+                  <img
+                    id="humidity-icon"
+                    src={thermometerIcon}
+                    alt="Weather icon"
+                  />
+                  <a>{convertKelvinToCelsius(a.main.temp)}</a>
+                </div>
+              </div>
             );
           })}
         </div>
-      </React.Fragment>
+      </div>
     );
   };
 
   return (
-    <React.Fragment>
-      <div>
-        {datesAsArray.map((a) => {
-          return <OneDayWeatherCard weatherData={a} />;
-        })}
-      </div>
-    </React.Fragment>
+    <div className="weather-week-container">
+      {sortedDates.map((a) => {
+        return <OneDayWeatherCard weatherData={a} />;
+      })}
+    </div>
   );
 };
+
+/** Find the url for the weather icon depends on the weather description */
+function getIcon(icon) {
+  const url = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+  return url;
+}
+
+function extendWeatherDescription() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
+
+function convertKelvinToCelsius(temperature) {
+  const cTemperature = temperature - 273;
+  const temp = Math.round(cTemperature);
+  const formalTemp = temp + "°C";
+  return formalTemp;
+}
+
+function convertKelvinToFarenheit(temperature) {
+  const fTemperature = ((temperature - 273.15) * 9) / 5 + 32;
+  const temp = Math.round(fTemperature);
+  const formalTemp = temp + "°F";
+  return formalTemp;
+}
+
+// Get only the first part of the timeString in the response API
+function getTime(string) {
+  const stringArray = string.split(" ");
+  const timeStamp = stringArray[0].split(":");
+  const time = timeStamp[0] + ":" + timeStamp[1];
+  return time;
+}
 
 export default WeatherCards;

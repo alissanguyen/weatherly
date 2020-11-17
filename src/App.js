@@ -1,9 +1,11 @@
 import logo from "./logo.svg";
 import "./App.css";
+import "./WeatherData.css";
 import { API_KEY, UnitOfTemperature } from "./constants";
 import React from "react";
 import WeatherCards from "./components/WeatherCard";
 import DropDownButton from "./components/DropDownButton";
+import { DEV_INITIAL_WEATHER_DATA } from "./example-data";
 
 /**
  * BASIC FEATURES
@@ -44,7 +46,7 @@ const GetWeatherForm = (props) => {
 
 function App() {
   const [weatherData, setWeatherData] = React.useState(null);
-  const [unit, setUnit] = React.useState(UnitOfTemperature.Celsius);
+  const [unit, setUnit] = React.useState(UnitOfTemperature.CELSIUS);
   const [show, setShow] = React.useState(false);
 
   const getWeather = (city) => {
@@ -74,36 +76,42 @@ function App() {
   };
 
   return (
-    <React.Fragment>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>Blue Sky</h1>
-        </header>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <h1 className="App__NameDisplay">Blue Sky</h1>
+      </header>
+      <div className="App__FixedWidthContainer">
         <DropDownButton onClick={() => setShow((show) => !show)} />
         {show && (
           <div id="components-box">
             <div className="unit">
-              <button onClick={() => setUnit(UnitOfTemperature.Celsius)}>
+              <button onClick={() => setUnit(UnitOfTemperature.CELSIUS)}>
                 Celsius (°C)
               </button>
             </div>
             <div>
-              <button onClick={() => setUnit(UnitOfTemperature.Farenheit)}>
+              <button onClick={() => setUnit(UnitOfTemperature.FAHRENHEIT)}>
                 Farenheit (°F)
               </button>
             </div>
           </div>
         )}
         <GetWeatherForm getWeather={(city) => getWeather(city)} />
+        {weatherData ? (
+          <React.Fragment>
+            <h2 className="WeatherData__LocationDisplay">
+              {weatherData.city}, {weatherData.country}
+            </h2>
+            <WeatherCards
+              className="weather-cards"
+              unit={unit}
+              weather={weatherData}
+            />
+          </React.Fragment>
+        ) : null}
       </div>
-      {weatherData ? (
-        <React.Fragment>
-          <h4>{weatherData.city}, {weatherData.country}</h4>
-          <WeatherCards unit={unit} weather={weatherData} />
-        </React.Fragment>
-      ) : null}
-    </React.Fragment>
+    </div>
   );
 }
 
