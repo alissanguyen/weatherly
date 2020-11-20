@@ -49,7 +49,7 @@ const WeatherCards = (props) => {
             return (
               <div className="weather-by-time">
                 <div>
-                  <a>{getTime(a.time)}</a>
+                  <p>{getTime(a.time)}</p>
                 </div>
                 <div id="icon">
                   <img
@@ -64,7 +64,7 @@ const WeatherCards = (props) => {
                     src={humidityIcon}
                     alt="Weather icon"
                   />
-                  <a>{a.main.humidity}%</a>
+                  <p>{a.main.humidity}%</p>
                 </div>
                 <div className="icons-data">
                   <img
@@ -72,7 +72,7 @@ const WeatherCards = (props) => {
                     src={thermometerIcon}
                     alt="Weather icon"
                   />
-                  <a>{ (unit === 0) ? convertKelvinToCelsius(a.main.temp) : convertKelvinToFarenheit(a.main.temp)}</a>
+                  <p>{ (unit === 0) ? convertKelvinToCelsius(a.main.temp) : convertKelvinToFarenheit(a.main.temp)}</p>
                 </div>
               </div>
             );
