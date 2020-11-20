@@ -6,20 +6,6 @@ import React from "react";
 import WeatherCards from "./components/WeatherCard";
 import DropDownButton from "./components/DropDownButton";
 
-/**
- * BASIC FEATURES
- * 1. Display five-day weather data
- * 2. Should have responsive designs
- * 3. Choose and display location and date
- * 4. Can switch between Farenheit and Celsius
- * 5. Can switch language
- */
-
-/**
- * ADVANCED FEATURES
- * 1. Users can click on a specific day to see the hourly forecast
- * 2. Add graphic library like 'vx'
- */
 
 const GetWeatherForm = (props) => {
   const [city, setCity] = React.useState(null);
@@ -47,6 +33,7 @@ function App() {
   const [weatherData, setWeatherData] = React.useState(null);
   const [unit, setUnit] = React.useState(UnitOfTemperature.CELSIUS);
   const [show, setShow] = React.useState(false);
+  const [failureRetrievingData, setFailureRetrievingData] = React.useState(false);
 
   const getWeather = (city) => {
     fetch(
@@ -69,8 +56,11 @@ function App() {
             };
           }),
         };
-
         setWeatherData(simplifiedData);
+      })
+      .catch(error => {
+        console.log(error);
+        setFailureRetrievingData(true);
       });
   };
 
@@ -97,6 +87,7 @@ function App() {
           </div>
         )}
         <GetWeatherForm getWeather={(city) => getWeather(city)} />
+        {failureRetrievingData ? (<FailureRetrievingData/>) : null}
         {weatherData ? (
           <React.Fragment>
             <h2 className="WeatherData__LocationDisplay">

@@ -1,14 +1,5 @@
 import humidityIcon from "../icons/humidity.svg";
 import thermometerIcon from "../icons/thermometer.svg";
-
-/**
- * 1. Display the icon of the weather (rain, sunny, cloudy, lightnings, snowy, etc.) CHECK
- * 2. Display the temperature (Celsius, Farenheit) --> Both high and low temp of each day
- * 3. Display the humidity
- * 4. (Extension) background gif for the weather condition
- *
- */
-
 import React from "react";
 import Spacer from "./Spacer";
 
@@ -81,7 +72,7 @@ const WeatherCards = (props) => {
                     src={thermometerIcon}
                     alt="Weather icon"
                   />
-                  <a>{convertKelvinToCelsius(a.main.temp)}</a>
+                  <a>{ (unit === 0) ? convertKelvinToCelsius(a.main.temp) : convertKelvinToFarenheit(a.main.temp)}</a>
                 </div>
               </div>
             );
