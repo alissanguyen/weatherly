@@ -162,3 +162,23 @@ form {
   height: 30px;
   font-size: 18px;
 }
+
+.failure-container {
+  margin: auto;
+  margin-top: 100px;
+  padding: 50px;
+  border: 2px solid white;
+  width: fit-content;
+  border-radius: 24px;
+  background: linear-gradient(to right, #212444, #074e6f) !important;
+}
+
+.failure-svg {
+  height: 200px;
+  margin-bottom: 30px;
+}
+
+.failure-message {
+  font-size: 30px;
+  color: white;
+}

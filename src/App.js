@@ -5,6 +5,7 @@ import { API_KEY, UnitOfTemperature } from "./constants";
 import React from "react";
 import WeatherCards from "./components/WeatherCard";
 import DropDownButton from "./components/DropDownButton";
+import FailureRetrievingData from "./components/FailureRetrievingData";
 
 
 const GetWeatherForm = (props) => {
@@ -40,6 +41,7 @@ function App() {
       `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}`
     )
       .then((res) => {
+        setFailureRetrievingData(false);
         return res.json();
       })
       .then((json) => {
@@ -88,7 +90,7 @@ function App() {
         )}
         <GetWeatherForm getWeather={(city) => getWeather(city)} />
         {failureRetrievingData ? (<FailureRetrievingData/>) : null}
-        {weatherData ? (
+        {!failureRetrievingData && weatherData ? (
           <React.Fragment>
             <h2 className="WeatherData__LocationDisplay">
               {weatherData.city}, {weatherData.country}
