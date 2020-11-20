@@ -73,7 +73,7 @@ const WeatherCards = (props) => {
                     src={humidityIcon}
                     alt="Weather icon"
                   />
-                  <a>{a.main.humidity}</a>
+                  <a>{a.main.humidity}%</a>
                 </div>
                 <div className="icons-data">
                   <img

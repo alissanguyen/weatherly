@@ -38,7 +38,7 @@ const GetWeatherForm = (props) => {
         onChange={(e) => setCity(e.target.value)}
         placeholder="Type your city name..."
       />
-      <button type="submit">Get Weather</button>
+      <button id="request-button" type="submit">Get Weather</button>
     </form>
   );
 };
@@ -78,19 +78,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="App__NameDisplay">Blue Sky</h1>
+        <h1 className="App__NameDisplay">Weatherly</h1>
       </header>
       <div className="App__FixedWidthContainer">
         <DropDownButton onClick={() => setShow((show) => !show)} />
         {show && (
           <div id="components-box">
-            <div className="unit">
-              <button onClick={() => setUnit(UnitOfTemperature.CELSIUS)}>
+            <div>
+              <button className="unit-button" onClick={() => setUnit(UnitOfTemperature.CELSIUS)}>
                 Celsius (°C)
               </button>
             </div>
             <div>
-              <button onClick={() => setUnit(UnitOfTemperature.FAHRENHEIT)}>
+              <button className="unit-button" onClick={() => setUnit(UnitOfTemperature.FAHRENHEIT)}>
                 Farenheit (°F)
               </button>
             </div>
