@@ -6,7 +6,8 @@ import React from "react";
 import WeatherCards from "./components/WeatherCard";
 import DropDownButton from "./components/DropDownButton";
 import FailureRetrievingData from "./components/FailureRetrievingData";
-import API_KEY from "./environment"
+import { API_KEY } from "./environment";
+
 
 const GetWeatherForm = (props) => {
   const [city, setCity] = React.useState(null);
