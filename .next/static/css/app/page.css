@@ -1,0 +1,196 @@
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./src/App.css ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+.App {
+  text-align: center;
+  background-color: #282c34;
+  box-sizing: border-box;
+
+  --default-text-color: rgba(235, 246, 255, 1);
+}
+
+.App__FixedWidthContainer {
+  max-width: 1500px;
+  margin: auto;
+}
+
+body {
+  padding: 15px;
+}
+
+.App-logo {
+  margin-left: 30px;
+  height: 8vmin;
+  pointer-events: none;
+}
+
+.App__NameDisplay {
+  font-size: 5rem;
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  display: flex;
+  color: white;
+  align-items: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+form {
+  color: white;
+}
+
+.weather-by-time {
+  border: 0px solid white;
+  color: rgba(235, 246, 255, 1);
+  display: grid;
+  grid-template-columns: 1fr 60px 62px 60px 1fr;
+  padding: 10px;
+  align-items: center;
+}
+
+.weather-by-time-container {
+  background-color: rgba(62, 110, 173, 0.3);
+  border-radius: 15px;
+  border: 2px solid rgba(235, 246, 255, 0.3);
+}
+
+.weather-week-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 20px;
+}
+
+.WeatherCard__DateHeader {
+  font-weight: 600;
+  margin: 0;
+  font-size: 1.4rem;
+  color: rgba(235, 246, 255, 1);
+}
+
+#weather-icon {
+  height: 55px;
+}
+
+#humidity-icon {
+  display: flex;
+  height: 15px;
+  padding: 3px;
+}
+
+.icons-data {
+  display: flex;
+}
+
+.units-button {
+  border-radius: 4px;
+  background: linear-gradient(to right, #424a87, #4fc1f5) !important;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 10px;
+  width: 400px;
+  transition: all 0.4s;
+  cursor: pointer;
+  margin: 5px;
+}
+.units-button:hover {
+  background: linear-gradient(to right, #141d6a, #2b7191) !important;
+  color: white;
+}
+
+.unit-button {
+  border-radius: 4px;
+  background: linear-gradient(to right, #141d6a, #2b7191) !important;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  padding: 10px;
+  width: 200px;
+  transition: all 0.4s;
+  cursor: pointer;
+  margin: 5px;
+}
+.unit-button:hover {
+  background: linear-gradient(to right, #2b7191, #141d6a) !important;
+  opacity: 0.9;
+  color: white;
+}
+
+#request-button {
+  border-radius: 4px;
+  background: linear-gradient(to right, #424a87, #4fc1f5) !important;
+  border: none;
+  color: #ffffff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 8px;
+  width: 150px;
+  transition: all 0.4s;
+  cursor: pointer;
+  margin: 5px;
+}
+#request-button:hover {
+  opacity: 0.6;
+  color: black;
+}
+
+#city-input {
+  width: 205px;
+  height: 30px;
+  font-size: 18px;
+}
+
+.failure-container {
+  margin: auto;
+  margin-top: 100px;
+  padding: 50px;
+  border: 2px solid white;
+  width: -moz-fit-content;
+  width: fit-content;
+  border-radius: 24px;
+  background: linear-gradient(to right, #212444, #074e6f) !important;
+}
+
+.failure-svg {
+  height: 200px;
+  margin-bottom: 30px;
+}
+
+.failure-message {
+  font-size: 30px;
+  color: white;
+}
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[10].use[3]!./src/WeatherData.css ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+.WeatherData__LocationDisplay {
+  font-size: 2.4rem;
+  color: var(--default-text-color);
+}
+
