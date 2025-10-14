@@ -1,5 +1,3 @@
-import * as React from "react";
-
 const Spacer = (props) => {
   return (
     <div
@@ -8,7 +6,7 @@ const Spacer = (props) => {
         height: props.height,
       }}
     ></div>
-  );
-};
+  )
+}
 
-export default Spacer;
+export default Spacer

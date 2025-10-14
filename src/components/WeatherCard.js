@@ -1,7 +1,6 @@
-import humidityIcon from "../icons/humidity.svg";
-import thermometerIcon from "../icons/thermometer.svg";
-import React from "react";
-import Spacer from "./Spacer";
+import humidityIcon from "../icons/humidity.svg"
+import thermometerIcon from "../icons/thermometer.svg"
+import Spacer from "./Spacer"
 
 const WeatherCards = (props) => {
   const { unit, weather } = props;
@@ -47,7 +46,7 @@ const WeatherCards = (props) => {
         <div className="weather-by-time-container">
           {data.map((a) => {
             return (
-              <div className="weather-by-time">
+              <div key={a.index} className="weather-by-time">
                 <div>
                   <p>{getTime(a.time)}</p>
                 </div>
@@ -61,7 +60,7 @@ const WeatherCards = (props) => {
                 <div className="icons-data">
                   <img
                     id="humidity-icon"
-                    src={humidityIcon}
+                    src={humidityIcon.src}
                     alt="Weather icon"
                   />
                   <p>{a.main.humidity}%</p>
@@ -69,7 +68,7 @@ const WeatherCards = (props) => {
                 <div className="icons-data">
                   <img
                     id="humidity-icon"
-                    src={thermometerIcon}
+                    src={thermometerIcon.src}
                     alt="Weather icon"
                   />
                   <p>{ (unit === 0) ? convertKelvinToCelsius(a.main.temp) : convertKelvinToFarenheit(a.main.temp)}</p>
@@ -85,7 +84,7 @@ const WeatherCards = (props) => {
   return (
     <div className="weather-week-container">
       {sortedDates.map((a) => {
-        return <OneDayWeatherCard weatherData={a} />;
+        return <OneDayWeatherCard key={a.dateString} weatherData={a} />;
       })}
     </div>
   );
